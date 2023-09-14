@@ -3,7 +3,10 @@ import { Employee } from "../utils/types"
 import { useCustomFetch } from "./useCustomFetch"
 import { EmployeeResult } from "./types"
 
+//  this function returns employee detail 
 export function useEmployees(): EmployeeResult {
+  // we are destructured useCustomFetch function 
+  
   const { fetchWithCache, loading } = useCustomFetch()
   const [employees, setEmployees] = useState<Employee[] | null>(null)
 

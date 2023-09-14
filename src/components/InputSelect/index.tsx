@@ -18,6 +18,8 @@ export function InputSelect<TItem>({
     left: 0,
   })
 
+
+  // here the function return the Items according to selected value 
   const onChange = useCallback<InputSelectOnChange<TItem>>(
     (selectedItem) => {
       if (selectedItem === null) {
@@ -51,9 +53,9 @@ export function InputSelect<TItem>({
         const parsedSelectedItem = selectedItem === null ? null : parseItem(selectedItem)
 
         return (
-          <div className="RampInputSelect--root">
+          <div className="RampInputSelect--root"  style={{backgroundColor : "red"}}>
             <label className="RampText--s RampText--hushed" {...getLabelProps()} >
-              {label}
+              {label} 
             </label>
             <div className="RampBreak--xs" />
             <div
@@ -70,10 +72,10 @@ export function InputSelect<TItem>({
               className={classNames("RampInputSelect--dropdown-container", {
                 "RampInputSelect--dropdown-container-opened": isOpen,
               })}
-              {...getMenuProps()}
+              {...getMenuProps()} 
               style={{ top: dropdownPosition.top, left: dropdownPosition.left }}
             >
-              {renderItems()}
+              {renderItems() } 
             </div>
           </div>
         )
@@ -107,7 +109,7 @@ export function InputSelect<TItem>({
                   }),
                 })}
               >
-                {parsedItem.label}
+                {parsedItem.label} 
               </div>
             )
           })

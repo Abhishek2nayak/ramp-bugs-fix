@@ -136,7 +136,9 @@ hr.RampBreak--l {
   padding: 0.125rem;
   width: 1.25rem;
   height: 1.25rem;
-  cursor: pointer;
+  
+  z-index: 1;
+  pointer-events: none;
 }
 
 .RampInputCheckbox--label-disabled {
@@ -149,10 +151,24 @@ hr.RampBreak--l {
   height: 100%;
   border-color: var(--color-constructive);
   background-color: var(--color-constructive);
+ 
+  
 }
 
+
+/* solve the second issue  */
+/* before : 
+  checkbox was disable, this is the reason to not working of onChange event of checkbox
+  2 : after this custom checkbox overlaps the checkbox so by setting its pointer-event : none
+  then pointer ignore's the customCheckbox and make sure to click the original checkbox.
+  3 : set z -index of element as per needs
+*/
+
 .RampInputCheckbox--input {
-  display: none;
+  position: relative;
+  left: -50%;
+  z-index: 0;
+  cursor: pointer;
 }
 
 .RampButton {
