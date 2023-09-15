@@ -13,6 +13,7 @@ export function App() {
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
+  const [id, setId] = useState("")
   
   const transactions = useMemo(
     () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
@@ -28,7 +29,7 @@ export function App() {
 
     setIsLoading(false)
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
-
+   
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
    
@@ -55,7 +56,7 @@ export function App() {
 
       {/* this components for select employees using dropdown list  */}
         <InputSelect<Employee>
-          isLoading={isLoading}
+          isLoading={employeeUtils.loading}
           defaultValue={EMPTY_EMPLOYEE}
           items={employees === null ? [] : [EMPTY_EMPLOYEE, ...employees]}
           label="Filter by employee"
@@ -70,13 +71,14 @@ export function App() {
             }
             
             if(newValue.id === "") {
+              setId("")
               await loadAllTransactions();
+              
             } else {
+            setId(newValue.id)
               await loadTransactionsByEmployee(newValue.id)
             }
 
-          
-            
           }}
         />
 
@@ -91,10 +93,16 @@ export function App() {
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}
               onClick={async () => {
-                await loadAllTransactions()
-
+              
+                if(id === "") {
+                  await loadAllTransactions()
+                } else {
+                  await loadTransactionsByEmployee(id)
+                }
+               
               }}
             >
+              
               View More
             </button>
           )}

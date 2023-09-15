@@ -53,7 +53,7 @@ export function InputSelect<TItem>({
         const parsedSelectedItem = selectedItem === null ? null : parseItem(selectedItem)
 
         return (
-          <div className="RampInputSelect--root"  style={{backgroundColor : "red"}}>
+          <div className="RampInputSelect--root" >
             <label className="RampText--s RampText--hushed" {...getLabelProps()} >
               {label} 
             </label>
@@ -75,7 +75,7 @@ export function InputSelect<TItem>({
               {...getMenuProps()} 
               style={{ top: dropdownPosition.top, left: dropdownPosition.left }}
             >
-              {renderItems() } {"jsdbfjhbfs"}
+              {renderItems() }
             </div>
           </div>
         )
