@@ -44,7 +44,3 @@ const moneyFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 })
 
-
-function Alert() {
-  return <h1>Alert</h1>
-}

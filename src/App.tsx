@@ -13,7 +13,7 @@ export function App() {
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   const [isLoading, setIsLoading] = useState(false)
-
+  
   const transactions = useMemo(
     () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
     [paginatedTransactions, transactionsByEmployee]
@@ -37,6 +37,7 @@ export function App() {
     },
     [paginatedTransactionsUtils, transactionsByEmployeeUtils]
   )
+ 
 
   useEffect(() => {
     if (employees === null && !employeeUtils.loading) {
@@ -80,23 +81,26 @@ export function App() {
         />
 
         <div className="RampBreak--l" />
-      
+
         <div className="RampGrid">
           {/* this layout return transactions according to selected value  */}
           <Transactions transactions={transactions} />
-
+         
           {transactions !== null && (
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}
               onClick={async () => {
                 await loadAllTransactions()
+
               }}
             >
               View More
             </button>
           )}
+           
         </div>
+       
       </main>
     </Fragment>
   )
