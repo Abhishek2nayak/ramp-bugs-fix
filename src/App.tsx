@@ -21,8 +21,8 @@ export function App() {
 
   const loadAllTransactions = useCallback(async () => {
     setIsLoading(true)
-    transactionsByEmployeeUtils.invalidateData()
-
+    transactionsByEmployeeUtils.invalidateData() //using invalidateData (*)
+      //both  using fetchAll methods that returns promise *
     await employeeUtils.fetchAll()
     await paginatedTransactionsUtils.fetchAll()
 
@@ -31,6 +31,7 @@ export function App() {
 
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
+   
       paginatedTransactionsUtils.invalidateData()
       await transactionsByEmployeeUtils.fetchById(employeeId)
     },
@@ -42,14 +43,16 @@ export function App() {
       loadAllTransactions()
     }
   }, [employeeUtils.loading, employees, loadAllTransactions])
-
   return (
     <Fragment>
       <main className="MainContainer">
+
+        {/* this is instructions of headers  */}
         <Instructions />
 
         <hr className="RampBreak--l" />
 
+      {/* this components for select employees using dropdown list  */}
         <InputSelect<Employee>
           isLoading={isLoading}
           defaultValue={EMPTY_EMPLOYEE}
@@ -62,16 +65,24 @@ export function App() {
           })}
           onChange={async (newValue) => {
             if (newValue === null) {
-              return
+              return EMPTY_EMPLOYEE
+            }
+            
+            if(newValue.id === "") {
+              await loadAllTransactions();
+            } else {
+              await loadTransactionsByEmployee(newValue.id)
             }
 
-            await loadTransactionsByEmployee(newValue.id)
+          
+            
           }}
         />
 
         <div className="RampBreak--l" />
-
+      
         <div className="RampGrid">
+          {/* this layout return transactions according to selected value  */}
           <Transactions transactions={transactions} />
 
           {transactions !== null && (

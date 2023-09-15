@@ -75,7 +75,7 @@ export function InputSelect<TItem>({
               {...getMenuProps()} 
               style={{ top: dropdownPosition.top, left: dropdownPosition.left }}
             >
-              {renderItems() } 
+              {renderItems() } {"jsdbfjhbfs"}
             </div>
           </div>
         )
@@ -109,7 +109,7 @@ export function InputSelect<TItem>({
                   }),
                 })}
               >
-                {parsedItem.label} 
+                {parsedItem.label}
               </div>
             )
           })
